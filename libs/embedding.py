@@ -2,8 +2,10 @@ import os
 from typing import Iterable
 
 import pandas as pd
+import numpy as np
 from scipy.sparse.csr import csr_matrix
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+import pickle
 
 
 def vectorize_with_bag_of_words(corpus: Iterable[str]):
@@ -34,8 +36,30 @@ def vectorize_with_word2vec(corpus: Iterable[str]):
 
     # TODO: create a matrix of sentence vectors
 
+def vectorize_with_glove(data, dim=100):
+    with open('glove.pickle', 'rb') as handle:
+        glove = pickle.load(handle)
+    X = np.zeros((len(data), dim))
+    invalid = 0
+    for n in range(len(data)):
+        tweet = data[n]
+        tokens = tweet.split()
+        vecs = []
+        for word in tokens:
+            try:
+                # throws KeyError if word not found
+                vecs.append(glove[word])
+            except KeyError:
+                pass
+        if len(vecs) > 0:
+            vecs = np.array(vecs)
+            X[n] = vecs.mean(axis=0)
+        else:
+            invalid+=1
+    return X
+
 
 # vectorize_with_word2vec(['hello world', 'fuck this world'])
-x, y = vectorize_with_tf_idf(['hello world', 'fuck this world'])
-print(y.get_feature_names_out())
-pprint_vectors(x, y)
+# x, y = vectorize_with_tf_idf(['hello world', 'fuck this world'])
+# print(y.get_feature_names_out())
+# pprint_vectors(x, y)
