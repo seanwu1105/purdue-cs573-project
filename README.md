@@ -34,6 +34,16 @@ source ./.venv/bin/activate
 Remember to activate the virtual environment every time you start a new terminal
 before running the scripts or notebooks in this project.
 
+### Install NLTK Data
+
+This project requires NLTK data. Download the data with the following command.
+Note that you should run this command after activate the Python virtual
+environment.
+
+```sh
+python -m nltk.downloader all
+```
+
 ## Development
 
 ### Add Dependencies
@@ -48,4 +58,12 @@ To add development dependencies (e.g. jupyter and mypy),
 
 ```sh
 poetry add -D <dev-dependency>
+```
+
+### Generate Preprocessing Data
+
+Run the `preprocess.py` to generate preprocessing data in `./assets`.
+
+```sh
+python preprocess.py
 ```
