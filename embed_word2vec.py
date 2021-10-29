@@ -4,14 +4,18 @@ import pandas as pd
 from libs.embedding import vectorize_with_word2vec
 
 
-def main():
-    train_data = pd.read_csv('./assets/preprocessed.csv')
-    sentence_vectors = vectorize_with_word2vec(train_data['text'])
-    print(sentence_vectors)
-    print(sentence_vectors.shape)
+def generate_embedded_word2vec():
+    df = pd.read_csv('./assets/preprocessed.csv')
+    df['text'] = df['text'].astype(str)
+    sentence_vectors = vectorize_with_word2vec(df['text'])
 
-    # np.save('./assets/word2vec_train_vectors', sentence_vectors)
+    np.savez_compressed('./assets/embedded_word2vec', sentence_vectors)
+
+
+def load_embedded_word2vec() -> np.ndarray:
+    return np.load('./assets/embedded_word2vec.npz')['arr_0']
 
 
 if __name__ == '__main__':
-    main()
+    generate_embedded_word2vec()
+    print(load_embedded_word2vec().shape)

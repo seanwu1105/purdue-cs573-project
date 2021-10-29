@@ -10,7 +10,8 @@ from .tf_idf import vectorize_with_tf_idf
 
 def vectorize_with_word2vec(corpus: Iterable[str]):
     word_vectors = load_word2vec_word_vectors()
-    X, vectorizer = vectorize_with_tf_idf(corpus)
+    X, vectorizer = vectorize_with_tf_idf(
+        corpus, return_vectorizer=True, min_df=1)
     vocabulary = vectorizer.get_feature_names_out()
     return product_sentence_vectors_with_word_vectors(
         X,
@@ -20,11 +21,9 @@ def vectorize_with_word2vec(corpus: Iterable[str]):
 
 def load_word2vec_word_vectors():
     os.environ['GENSIM_DATA_DIR'] = './.venv/lib/gensim-data'
-    import gensim.downloader
+    import gensim.downloader  # pylint: disable=redefined-outer-name
 
     return gensim.downloader.load('word2vec-google-news-300')
-    # return gensim.models.KeyedVectors.load_word2vec_format(
-    #     'GoogleNews-vectors-negative300.bin', binary=True, limit=500000)
 
 
 def product_sentence_vectors_with_word_vectors(
@@ -34,9 +33,16 @@ def product_sentence_vectors_with_word_vectors(
     ret = []
     for tf_idf_vector in sentence_vectors:
         producted = np.zeros(300)
+        reconized_count = 0
         for data_idx, idx in enumerate(tf_idf_vector.indices):
-            producted = (word_vectors[vocabulary[idx]]
-                         * tf_idf_vector.data[data_idx])
+            try:
+                wv = word_vectors[vocabulary[idx]]
+                producted += (wv * tf_idf_vector.data[data_idx])
+                reconized_count += 1
+            except KeyError:
+                pass
+        if reconized_count > 0:
+            producted /= reconized_count
         ret.append(producted)
 
     return np.array(ret)
