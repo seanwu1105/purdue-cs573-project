@@ -5,6 +5,19 @@ import nltk.corpus
 STOPWORDS = set(nltk.corpus.stopwords.words('english'))
 
 
+def classify_sentiment(text: str):
+    if text == 'Extremely Positive':
+        return '2'
+    elif text == 'Extremely Negative':
+        return '0'
+    elif text == 'Negative':
+        return '0'
+    elif text == 'Positive':
+        return '2'
+    else:
+        return '1'
+
+
 def preprocess_text(text: str):
     text = remove_urls(text)
     text = remove_html(text)
