@@ -8,8 +8,7 @@ def vectorize_with_glove(data, dim=100):
         glove = pickle.load(handle)
     X = np.zeros((len(data), dim))
     invalid = 0
-    for idx, data in enumerate(data):
-        tweet = data[idx]
+    for idx, tweet in enumerate(data):
         tokens = tweet.split()
         vecs = []
         for word in tokens:

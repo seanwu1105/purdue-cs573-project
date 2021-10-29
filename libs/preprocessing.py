@@ -8,11 +8,11 @@ STOPWORDS = set(nltk.corpus.stopwords.words('english'))
 def classify_sentiment(text: str):
     if text == 'Extremely Positive':
         return '2'
-    elif text == 'Extremely Negative':
+    if text == 'Extremely Negative':
         return '0'
-    elif text == 'Negative':
+    if text == 'Negative':
         return '0'
-    elif text == 'Positive':
+    if text == 'Positive':
         return '2'
     return '1'
 

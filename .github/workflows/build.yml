@@ -2,7 +2,7 @@ name: build
 on: [push, pull_request]
 
 jobs:
-  lint:
+  pylint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,11 +22,29 @@ jobs:
         run: poetry install --no-root
 
       - name: Lint
-        run: |
-          poetry run python -m pylint libs/
-          poetry run python -m pylint ./*.py
-          poetry run python -m mypy libs/
-          poetry run python -m mypy ./*.py
+        run: poetry run python -m pylint ./*.py libs/
+
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.5
+
+      - name: Set up Poetry
+        uses: abatilo/actions-poetry@v2.1.0
+        with:
+          poetry-version: 1.1.6
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Lint
+        run: poetry run python -m mypy ./*.py libs/*.py
 
   test:
     runs-on: ubuntu-latest
