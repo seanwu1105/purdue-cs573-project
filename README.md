@@ -41,7 +41,7 @@ Note that you should run this command after activate the Python virtual
 environment.
 
 ```sh
-python -m nltk.downloader all
+python -m nltk.downloader -d ./.venv/lib/nltk_data stopwords
 ```
 
 ## Development
