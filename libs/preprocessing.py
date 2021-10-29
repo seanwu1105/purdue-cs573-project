@@ -1,4 +1,5 @@
 import re
+
 import nltk.corpus
 
 STOPWORDS = set(nltk.corpus.stopwords.words('english'))

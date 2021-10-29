@@ -1,5 +1,6 @@
-import pandas as pd
 from typing import Iterable
+
+import pandas as pd
 from scipy.sparse.csr import csr_matrix
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
