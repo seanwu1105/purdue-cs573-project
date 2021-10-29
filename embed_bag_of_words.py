@@ -1,15 +1,14 @@
-import numpy as np
 import pandas as pd
+import scipy.sparse
 
 from libs.embedding import vectorize_with_bag_of_words
 
 
 def main():
-    df = pd.read_csv(f'./assets/clean.csv')
+    df = pd.read_csv('./assets/preprocessed.csv')
     df['text'] = df['text'].astype(str)
     sentence_vectors, _ = vectorize_with_bag_of_words(df['text'])
-    print(sentence_vectors.shape)
-    # np.save(f'./assets/embedded_bag_of_words', sentence_vectors)
+    scipy.sparse.save_npz('./assets/embedded_bag_of_words', sentence_vectors)
 
 
 if __name__ == '__main__':
