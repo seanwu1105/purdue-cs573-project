@@ -13,7 +13,9 @@ def generate_embedded_bag_of_words():
 
 
 def load_embedded_bag_of_words() -> np.ndarray:
-    return scipy.sparse.load_npz('./assets/embedded_bag_of_words.npz').toarray()
+    ret = scipy.sparse.load_npz('./assets/embedded_bag_of_words.npz').toarray()
+    assert isinstance(ret, np.ndarray)
+    return ret
 
 
 if __name__ == '__main__':

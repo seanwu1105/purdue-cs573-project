@@ -13,7 +13,9 @@ def generate_embedded_word2vec():
 
 
 def load_embedded_word2vec() -> np.ndarray:
-    return np.load('./assets/embedded_word2vec.npz')['arr_0']
+    ret = np.load('./assets/embedded_word2vec.npz')['arr_0']
+    assert isinstance(ret, np.ndarray)
+    return ret
 
 
 if __name__ == '__main__':

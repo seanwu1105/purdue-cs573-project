@@ -13,7 +13,9 @@ def generate_embedded_tf_idf():
 
 
 def load_embedded_tf_idf() -> np.ndarray:
-    return scipy.sparse.load_npz('./assets/embedded_tf_idf.npz').toarray()
+    ret = scipy.sparse.load_npz('./assets/embedded_tf_idf.npz').toarray()
+    assert isinstance(ret, np.ndarray)
+    return ret
 
 
 if __name__ == '__main__':
