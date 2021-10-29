@@ -21,7 +21,6 @@ def vectorize_with_word2vec(corpus: Iterable[str]):
 def load_word2vec_word_vectors():
     os.environ['GENSIM_DATA_DIR'] = './.venv/lib/gensim-data'
     import gensim.downloader
-    import gensim.models
 
     return gensim.downloader.load('word2vec-google-news-300')
     # return gensim.models.KeyedVectors.load_word2vec_format(

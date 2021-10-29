@@ -14,8 +14,7 @@ def classify_sentiment(text: str):
         return '0'
     elif text == 'Positive':
         return '2'
-    else:
-        return '1'
+    return '1'
 
 
 def preprocess_text(text: str):
