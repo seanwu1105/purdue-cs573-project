@@ -67,3 +67,33 @@ jobs:
 
       - name: Test
         run: poetry run python -m pytest tests/
+
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.5
+
+      - name: Set up Poetry
+        uses: abatilo/actions-poetry@v2.1.0
+        with:
+          poetry-version: 1.1.6
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-root
+          poetry run python -m nltk.downloader -d ./.venv/lib/nltk_data stopwords
+
+      - name: Generate preprocessed data
+        run: poetry run python preprocess.py
+
+      - name: Generate embedded vectors
+        run: |
+          poetry run python embed_bag_of_words.py
+          poetry run python embed_tf_idf.py
+          poetry run python embed_word2vec.py
