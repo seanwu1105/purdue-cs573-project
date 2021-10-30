@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import scipy.sparse
 
 from libs.embedding import vectorize_with_glove
 
