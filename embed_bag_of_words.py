@@ -6,7 +6,7 @@ from libs.embedding import vectorize_with_bag_of_words
 
 
 def generate_embedded_bag_of_words():
-    df = pd.read_csv('./assets/preprocessed.csv')
+    df = pd.read_csv('./assets/preprocessed.csv', encoding='ISO-8859-1')
     df['text'] = df['text'].astype(str)
     sentence_vectors = vectorize_with_bag_of_words(df['text'])
     scipy.sparse.save_npz('./assets/embedded_bag_of_words', sentence_vectors)

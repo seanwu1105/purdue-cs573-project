@@ -6,7 +6,7 @@ from libs.embedding import vectorize_with_tf_idf
 
 
 def generate_embedded_tf_idf():
-    df = pd.read_csv('./assets/preprocessed.csv')
+    df = pd.read_csv('./assets/preprocessed.csv', encoding='ISO-8859-1')
     df['text'] = df['text'].astype(str)
     sentence_vectors = vectorize_with_tf_idf(df['text'])
     scipy.sparse.save_npz('./assets/embedded_tf_idf', sentence_vectors)

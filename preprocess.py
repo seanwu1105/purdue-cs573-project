@@ -1,8 +1,9 @@
+import pandas as pd
+
 import libs.preprocessing
 
 
 def main():
-    import pandas as pd
 
     train_data = pd.read_csv(
         './assets/Corona_NLP_train.csv', encoding='ISO-8859-1')
@@ -20,7 +21,8 @@ def main():
     df['text'] = df['text'].apply(libs.preprocessing.preprocess_text)
     df['label'] = df['Sentiment'].apply(libs.preprocessing.classify_sentiment)
 
-    df.to_csv('./assets/preprocessed.csv', index=False)
+    df.to_csv('./assets/preprocessed.csv', index=False,
+              encoding='ISO-8859-1', line_terminator='\r\n')
 
 
 if __name__ == '__main__':

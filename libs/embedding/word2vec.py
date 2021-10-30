@@ -10,13 +10,12 @@ from .tf_idf import vectorize_with_tf_idf
 
 def vectorize_with_word2vec(corpus: Iterable[str]):
     word_vectors = load_word2vec_word_vectors()
-    X, vectorizer = vectorize_with_tf_idf(
-        corpus, return_vectorizer=True, min_df=1)
+    X, vectorizer = vectorize_with_tf_idf(corpus,
+                                          return_vectorizer=True, min_df=1)
     vocabulary = vectorizer.get_feature_names_out()
-    return product_sentence_vectors_with_word_vectors(
-        X,
-        vocabulary,
-        word_vectors)
+    return product_sentence_vectors_with_word_vectors(X,
+                                                      vocabulary,
+                                                      word_vectors)
 
 
 def load_word2vec_word_vectors():
