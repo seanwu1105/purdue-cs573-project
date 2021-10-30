@@ -85,7 +85,9 @@ jobs:
           poetry-version: 1.1.6
 
       - name: Install dependencies
-        run: poetry install --no-root
+        run: |
+          poetry install --no-root
+          poetry run python -m nltk.downloader -d ./.venv/lib/nltk_data stopwords
 
       - name: Generate preprocessed data
         run: poetry run python preprocess.py
