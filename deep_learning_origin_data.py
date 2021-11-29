@@ -8,7 +8,7 @@ from tensorflow.keras import preprocessing
 import matplotlib.pyplot as plt
 
 EPOCHS = 16
-BATCH_SIZE=16
+BATCH_SIZE = 16
 MAX_SEQUENCE_LENGTH = 266
 
 PREPROCESSED_DATA_PATH = 'assets/preprocessed.csv'
@@ -43,7 +43,7 @@ model.add(layers.Dropout(0.4))
 model.add(layers.Dense(32, activation='relu'))
 model.add(layers.Dropout(0.4))
 model.add(layers.Dense(3, activation='softmax'))
-model.compile(loss='sparse_categorical_crossentropy',optimizer='adam', metrics=['accuracy'])
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 print(model.summary())
 
 # Train
