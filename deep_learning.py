@@ -1,13 +1,14 @@
 import pandas as pd
+from sklearn.model_selection import train_test_split
 from tensorflow import keras
 from tensorflow.keras import layers
+
 from embed_word2vec import load_embedded_word2vec
 
 df = pd.read_csv('./assets/preprocessed.csv', encoding='ISO-8859-1')
 
 embeddings = {'word2vec': load_embedded_word2vec}
 
-from sklearn.model_selection import train_test_split
 
 labels = df['label'].to_numpy()
 for name, load_func in embeddings.items():
@@ -36,8 +37,10 @@ for name, load_func in embeddings.items():
     outputs = layers.Dense(3, activation="softmax")(x)
     model = keras.Model(inputs, outputs)
     model.summary()
-    model.compile(optimizer="adam", loss='sparse_categorical_crossentropy', metrics=["accuracy"])
-    history = model.fit(X_train, y_train, batch_size=16, epochs=1, validation_split=0.2)
+    model.compile(optimizer="adam",
+                  loss='sparse_categorical_crossentropy', metrics=["accuracy"])
+    history = model.fit(X_train, y_train, batch_size=16,
+                        epochs=1, validation_split=0.2)
     loss, acc = model.evaluate(x=X_test,
                                y=y_test)
     print("test loss: ", loss, ", test acc: ", 100 * acc, "%")
